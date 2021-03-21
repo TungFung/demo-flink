@@ -23,6 +23,7 @@ public class CustomSource implements SourceFunction<String> {
         TimeUnit.SECONDS.sleep(3);
         String e1 = "a," + System.currentTimeMillis() + "," + dateFormat.format(System.currentTimeMillis());
         String e2 = "a," + System.currentTimeMillis() + "," + dateFormat.format(System.currentTimeMillis());
+        String e2_2 = "a," + System.currentTimeMillis() + "," + dateFormat.format(System.currentTimeMillis());
         ctx.collect(e1);//第一个发送了,第二个事件由于网络原因，事件没有发送
 
         TimeUnit.SECONDS.sleep(3);
@@ -37,6 +38,7 @@ public class CustomSource implements SourceFunction<String> {
         TimeUnit.SECONDS.sleep(3);
         String e5 = "a," + System.currentTimeMillis() + "," + dateFormat.format(System.currentTimeMillis());
         ctx.collect(e5);
+        ctx.collect(e2_2);
 
         TimeUnit.SECONDS.sleep(10);//让数据流不要这么快停掉，停掉了之后，处理程序会停掉
         System.out.println("------输入流结束,结束时间：" + dateFormat.format(System.currentTimeMillis())+"------");
