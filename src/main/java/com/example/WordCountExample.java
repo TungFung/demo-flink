@@ -14,7 +14,7 @@ import org.apache.flink.util.Collector;
 /**
  * flink web ui 默认端口8081
  */
-public class WordCount {
+public class WordCountExample {
 
     public static void main(String[] args) throws Exception {
 //        ParameterTool parameterTool = ParameterTool.fromArgs(args);
