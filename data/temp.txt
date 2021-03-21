@@ -1,0 +1,33 @@
+// 使用 TumblingProcessingTimeWindows
+DataStream<Tuple2<String, Integer>> counts =
+        dataStreamSource.flatMap(new Tokenizer())
+                .keyBy(0)
+                // 使用 Processing Time 来计算每隔 5 秒中的每个单词的数量
+                .window(TumblingProcessingTimeWindows.of(Time.seconds(5)))
+                .sum(1);
+
+// 以上的代码可以使用下面的代码来替换，效果一样：
+env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
+DataStream<Tuple2<String, Integer>> counts =
+        dataStreamSource.flatMap(new Tokenizer())
+                .keyBy(0)
+                // 使用 Processing Time 来计算每隔 5 秒中的每个单词的数量
+                .timeWindow(Time.seconds(5))
+                .sum(1);
+
+// 使用 TumblingEventTimeWindows
+DataStream<Tuple2<String, Integer>> counts =
+        dataStreamSource.flatMap(new Tokenizer())
+                .keyBy(0)
+                // 使用 Event Time 来计算每隔 5 秒中的每个单词的数量
+                .window(TumblingEventTimeWindows.of(Time.seconds(5)))
+                .sum(1);
+
+// 以上的代码可以使用下面的代码来替换，效果一样：
+env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+DataStream<Tuple2<String, Integer>> counts =
+        dataStreamSource.flatMap(new Tokenizer())
+                .keyBy(0)
+                // 使用 Event Time 来计算每隔 5 秒中的每个单词的数量
+                .timeWindow(Time.seconds(5))
+                .sum(1);
